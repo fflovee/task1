@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--Mapper.xml映射文件中定义了操作数据库的sql，每个sql是一个statement，映射文件是mybatis的核心。
+映射文件中有很多属性，常用的就是parameterType(输入类型)、resultType(输出类型)
+resultMap()、rparameterMap()-->
+
+<mapper namespace="com.jnshu.hpmybatis.dao.UserMapper">
+
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="qq" column="qq" jdbcType="BIGINT"/>
+        <result property="type"  column="type" jdbcType="VARCHAR"/>
+        <result property="jointime" column="jointime" jdbcType="BIGINT"/>
+        <result property="technology" column="technology" jdbcType="VARCHAR"/>
+        <result property="jnshuID"  column="jnshuID" jdbcType="BIGINT"/>
+        <result property="daily" column="daily" jdbcType="VARCHAR"/>
+        <result property="wish" column="wish" jdbcType="VARCHAR"/>
+        <result property="brother"  column="brother" jdbcType="VARCHAR"/>
+        <result property="knowfrom" column="knowfrom" jdbcType="VARCHAR"/>
+        <result property="create_at" column="create_at" jdbcType="BIGINT"/>
+        <result property="update_at"  column="update_at" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <insert id="insertUser">
+        insert into jnshu
+        (name,qq,type,jointime,technology,jnshuID,daily,wish,brother,knowfrom,create_at,update_at)
+        values
+        (#{name},
+        #{qq},
+        #{type},
+        #{jointime},
+        #{technology},
+        #{jnshuID},
+        #{daily},
+        #{wish},
+        #{brother},
+        #{knowfrom},
+        #{create_at},
+        #{update_at})
+    </insert>
+
+    <select id="selectUser" parameterType="java.lang.String" resultMap="userMap">
+        select * from jnshu where name =#{username}
+    </select>
+
+    <select id="selectAll" resultMap="userMap">
+        select * from jnshu
+    </select>
+
+    <delete id="deleteUser" parameterType="Integer">
+        delete from jnshu where id = #{id}
+    </delete>
+    
+    <update id="updateUser" >
+        update jnshu
+            set name = #{name},
+                qq = #{qq},
+                type = #{type},
+                jointime = #{jointime},
+                technology = #{technology},
+                jnshuID = #{jnshuID},
+                daily = #{daily},
+                wish = #{wish},
+                brother = #{brother},
+                knowfrom = #{knowfrom},
+                create_at = #{create_at},
+                update_at= #{update_at}
+                where id = #{id}
+    </update>
+</mapper>
